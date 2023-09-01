@@ -1,5 +1,7 @@
 # Konfiguration hinzufügen
 
+Damit wir später nicht ständig Anpassungen im Code duchführen müssen, extrahieren wir die Informationen in eine Konfigurationsdatei.
+
 1. Die Datei `params.yaml` mit folgendem Inhalt erstellen:
     ```yaml
     data:

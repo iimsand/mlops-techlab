@@ -1,0 +1,153 @@
+schema: '2.0'
+stages:
+  data_load:
+    cmd: python src/data_load.py --config params.yaml
+    deps:
+    - path: src/data_load.py
+      hash: md5
+      md5: 90059d665885585403bab14b20e02045
+      size: 851
+    params:
+      params.yaml:
+        base:
+          log_level: INFO
+        data:
+          dataset_joblib: data/raw/data_digits.joblib
+          features_path: data/processed/digits.csv
+          test_size: 0.5
+          train_path: data/train/train.csv
+          test_path: data/test/test.csv
+    outs:
+    - path: data/raw/data_digits.joblib
+      hash: md5
+      md5: b0614ac8e26f35b60d202c3058e39396
+      size: 1857977
+  data_prepare:
+    cmd: python src/data_prepare.py --config params.yaml
+    deps:
+    - path: data/raw/data_digits.joblib
+      hash: md5
+      md5: b0614ac8e26f35b60d202c3058e39396
+      size: 1857977
+    - path: src/data_prepare.py
+      hash: md5
+      md5: f8b606a6ce0477ead74c2e09d593feb3
+      size: 1095
+    params:
+      params.yaml:
+        base:
+          log_level: INFO
+        data:
+          dataset_joblib: data/raw/data_digits.joblib
+          features_path: data/processed/digits.csv
+          test_size: 0.5
+          train_path: data/train/train.csv
+          test_path: data/test/test.csv
+    outs:
+    - path: data/processed/digits.csv
+      hash: md5
+      md5: 1fc784c85d4dccff5482fbee13f38cf8
+      size: 498969
+  data_split:
+    cmd: python src/data_split.py --config params.yaml
+    deps:
+    - path: data/processed/digits.csv
+      hash: md5
+      md5: 1fc784c85d4dccff5482fbee13f38cf8
+      size: 498969
+    - path: src/data_split.py
+      hash: md5
+      md5: d76376620ea589b29776276102e9a9df
+      size: 1176
+    params:
+      params.yaml:
+        base:
+          log_level: INFO
+        data:
+          dataset_joblib: data/raw/data_digits.joblib
+          features_path: data/processed/digits.csv
+          test_size: 0.5
+          train_path: data/train/train.csv
+          test_path: data/test/test.csv
+    outs:
+    - path: data/test/test.csv
+      hash: md5
+      md5: fdd9892e9f72c4e1b73bf3e7280f0728
+      size: 249861
+    - path: data/train/train.csv
+      hash: md5
+      md5: cf226f15bc0f6a20b2ef65e4bafd2bc1
+      size: 249755
+  train:
+    cmd: python src/train.py --config params.yaml
+    deps:
+    - path: data/train/train.csv
+      hash: md5
+      md5: cf226f15bc0f6a20b2ef65e4bafd2bc1
+      size: 249755
+    - path: src/train.py
+      hash: md5
+      md5: 5da45445c47cd81e9abdab60589ba537
+      size: 1225
+    params:
+      params.yaml:
+        base:
+          log_level: INFO
+        data:
+          dataset_joblib: data/raw/data_digits.joblib
+          features_path: data/processed/digits.csv
+          test_size: 0.5
+          train_path: data/train/train.csv
+          test_path: data/test/test.csv
+        train:
+          svc_params:
+            kernel: linear
+            C: 0.025
+          model_path: models/model.joblib
+    outs:
+    - path: models/model.joblib
+      hash: md5
+      md5: 0a0f0db0d1a3d17ff20163c0948fb9c2
+      size: 224539
+  evaluate:
+    cmd: python src/evaluate.py --config params.yaml
+    deps:
+    - path: data/test/test.csv
+      hash: md5
+      md5: fdd9892e9f72c4e1b73bf3e7280f0728
+      size: 249861
+    - path: models/model.joblib
+      hash: md5
+      md5: 0a0f0db0d1a3d17ff20163c0948fb9c2
+      size: 224539
+    - path: src/evaluate.py
+      hash: md5
+      md5: ee3dc4a289bfe8e5694adf4138d34288
+      size: 1661
+    params:
+      params.yaml:
+        base:
+          log_level: INFO
+        data:
+          dataset_joblib: data/raw/data_digits.joblib
+          features_path: data/processed/digits.csv
+          test_size: 0.5
+          train_path: data/train/train.csv
+          test_path: data/test/test.csv
+        reports:
+          metrics_path: reports/metrics.json
+          cm_plot_path: reports/confusion_matrix.png
+        train:
+          svc_params:
+            kernel: linear
+            C: 0.025
+          model_path: models/model.joblib
+    outs:
+    - path: reports/confusion_matrix.png
+      hash: md5
+      md5: d214555f0a25ca550d63301d07929a75
+      size: 29916
+    - path: reports/metrics.json
+      hash: md5
+      md5: 634acac2b5e82db15c34a4bf7c1e3757
+      size: 32

@@ -46,7 +46,6 @@
     git push
     dvc push
     ```
-1. Mit `dvc exp show` sieht man nun, dass auch auf dem `main` ein `f1 score` angezeigt wird.
 
 
 ## Zusätzliche Dokumentation
