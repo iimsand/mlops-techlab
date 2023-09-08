@@ -16,41 +16,41 @@ Im den folgenden Screenshots ist zu sehen, welche Optionen gemeint sind:
 ## Pipeline bei jedem Push ausführen
 
 1. Die Datei `.github/workflows/cml.yaml` mit folgendem Inhalt erstellen:
-```yaml
-name: CML & DVC
-on: [push]
-jobs:
-  train-and-report:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - uses: iterative/setup-cml@v1
-      - uses: actions/checkout@v3
-      - name: Train model
-        run: |
-          cat requirements.txt | grep -v -e jupyter > ci_requirements.txt
-          pip install -r ci_requirements.txt
-          PYTHONPATH=$PWD dvc repro
-      - name: Create CML report
-        env:
-          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "## Metrics" >> report.md
-
-          git fetch --prune
-          dvc metrics show --md >> report.md
-
-          echo "### Diff" >> report.md
-          dvc metrics diff main --md >> report.md
-
-          echo "## Plots" >> report.md
-          echo "### Class confusions" >> report.md
-          echo '![](./reports/confusion_matrix.png "Confusion Matrix")' >> report.md          
-
-          cml comment create report.md
-```
+    ```yaml
+    name: CML & DVC
+    on: [push]
+    jobs:
+      train-and-report:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/setup-node@v3
+            with:
+              node-version: 16
+          - uses: iterative/setup-cml@v1
+          - uses: actions/checkout@v3
+          - name: Train model
+            run: |
+              cat requirements.txt | grep -v -e jupyter > ci_requirements.txt
+              pip install -r ci_requirements.txt
+              PYTHONPATH=$PWD dvc repro
+          - name: Create CML report
+            env:
+              REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            run: |
+              echo "## Metrics" >> report.md
+    
+              git fetch --prune
+              dvc metrics show --md >> report.md
+    
+              echo "### Diff" >> report.md
+              dvc metrics diff main --md >> report.md
+    
+              echo "## Plots" >> report.md
+              echo "### Class confusions" >> report.md
+              echo '![](./reports/confusion_matrix.png "Confusion Matrix")' >> report.md          
+    
+              cml comment create report.md
+    ```
 1. Änderungen in Git hinzufügen und pushen:
     ```shell
     git add .

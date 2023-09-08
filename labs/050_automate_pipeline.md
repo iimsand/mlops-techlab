@@ -1,8 +1,6 @@
-# Pipeline zusammenstellen
+# Pipeline automatisieren
 
-## Erweiterung DVC installieren
-
-1. Falls dvc noch nicht in `requirements.txt` eingetragen ist, diese hinzufügen:
+1. Die Datei `requirements.txt` anpassen:
     ```
     scikit-learn==1.3.0
     matplotlib==3.7.2
@@ -10,11 +8,10 @@
     +dvc=3.15.0
     jupyterlab==4.0.3
     ```
-1. Die neue Abhängigkeit installieren mit folgendem Befehl 
-(**ACHTUNG**: falls man sich nicht schon im virtuellen Environment befindet, unbedingt zuerst mit `source .env/bin/activate` aktivieren!):
+1. Die neue Abhängigkeit installieren mit folgendem Befehl (**ACHTUNG**: falls man sich nicht schon im virtuellen Environment befindet, unbedingt zuerst mit `source .env/bin/activate` aktivieren!):
     ```shell
-    pip install -r requiremets.txt
-    ``````
+    pip install -r requirements.txt
+    ```
 
 ## DVC initialisieren
 
@@ -75,7 +72,7 @@ Mit `dvc dag` lässt sich die bis jetzt vorhandene Pipeline darstellen.
 Eine Stage kann auch manuell im `dvc.yaml` hinzugefügt werden. Dazu `dvc.yaml` öffnen und folgende Zeilen hinzufügen:
 
 ```yaml
-data_split:
+  data_split:
     cmd: python src/data_split.py --config params.yaml
     deps:    
     - src/data_split.py

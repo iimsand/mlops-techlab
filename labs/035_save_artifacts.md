@@ -1,7 +1,5 @@
 # Artefakte speichern
 
-Damit wir den Output später weiterverwenden können, müssen wir die Artefakte in separate Dateien abspeichern. Dazu müssen wir folgende Änderungen am Code durchführen.
-
 1. Folgende Änderungen im Code durchführen:
     ```diff
     import matplotlib.pyplot as plt
@@ -80,7 +78,7 @@ Damit wir den Output später weiterverwenden können, müssen wir die Artefakte 
     +cm_plot.figure_.savefig(use_file("reports/confusion_matrix.png"))
     ```
 1. Testen ob noch alles funktoniert
-1. Die abgespeicherten Dateien möchten wir aber nicht mit GIT versionieren und müssen deshalb die Ausgabeordner dem `.gitignore` hinzufügen: 
+1. Die Datei `.gitignore` anpassen:
     ```diff
     /.env
     .ipynb_checkpoints/

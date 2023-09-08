@@ -1,21 +1,27 @@
 # Code verschieben
 
-Damit wir einzelne Schritte unabhängig ausführen können, teilen wir Wir die Funktionalität im Jupyter-Notebook in einzelne Python-Dateien auf. Dafür müssen wir am Ende des Skripts in eine Datei schreiben, die im Folgeschritt wieder gelesen werden kann. `joblib.dump()` bietet die Möglichkeit, ganze Python-Objekte effizient abzuspeichern und einzulesen. Alternativ kann ein Dataframe auch in eine csv-Datei abgespeichert werden.
+1. In der Datei `params.yaml` folgende Änderung durchführen:
+    ```diff
+    +base:
+    +    log_level: INFO
 
-Wir erstellen nun folgende Dateien, oder passen sie an:
-* [Allgemein:](#allgemein) [src/utils.py]()
-* [Konfiguration:](#konfiguration) [params.yaml]()
-* [Daten laden:](#daten-laden) [src/data_load.py]()
-* [Daten vorbereiten:](#daten-vorbereiten) [src/data_prepare.py]()
-* [Daten splitten:](#daten-splitten) [src/data_split.py]()
-* [Training:](#training) [src/train.py]()
-* [Evaluation:](#evaluation) [src/evaluate.py]()
+    data:
+        dataset_joblib: data/raw/data_digits.joblib
+        features_path: data/processed/digits.csv
+        test_size: 0.5
+        train_path: data/train/train.csv
+        test_path: data/test/test.csv
+    train:
+        svc_params:
+            kernel: linear
+            C: 0.025
+        model_path: models/model.joblib
 
-## Allgemein
+    reports:
+        metrics_path: reports/metrics.json
+        cm_plot_path: reports/confusion_matrix.png
+    ```
 1. Die Datei `src/utils.py` mit folgendem Inhalt erstellen:
-
-    Allgemeine Funktionen auslagern. Zudem erstellen wir einen Logger, den wir konfigurieren können. So haben wir die Möglichkeit, die granularität der ausgegebenen Informationen über die Konfiguration des Loglevels zu steuern.
-
     ```python
     import logging
     from typing import Text, Union
@@ -50,29 +56,6 @@ Wir erstellen nun folgende Dateien, oder passen sie an:
 
         return logger
     ```
-## Konfiguration
-1. In der Datei `params.yaml` folgende das Loglevel definieren:
-    ```diff
-    +base:
-    +    log_level: INFO
-
-    data:
-        dataset_joblib: data/raw/data_digits.joblib
-        features_path: data/processed/digits.csv
-        test_size: 0.5
-        train_path: data/train/train.csv
-        test_path: data/test/test.csv
-    train:
-        svc_params:
-            kernel: linear
-            C: 0.025
-        model_path: models/model.joblib
-
-    reports:
-        metrics_path: reports/metrics.json
-        cm_plot_path: reports/confusion_matrix.png
-    ```
-
 
 ## Daten laden
 
@@ -118,6 +101,32 @@ Wir erstellen nun folgende Dateien, oder passen sie an:
 1. Skript testen mit folgendem Befehl:
     ```shell
     python3 src/data_load.py --config params.yaml
+    ```
+
+### In einem Jupyter Notebook testen
+
+1. Ein neues Jupyter Notebook `notebooks/pipline.ipynb` erstellen
+1. Folgender Code in eine Zelle einfügen:
+    ```python
+    %load_ext autoreload
+    %autoreload 2
+
+    import os
+    import sys
+    from pathlib import Path
+
+    # change directory one level up if current working directory is 'notebooks'
+    if (Path.cwd().name == 'notebooks'):
+        %cd ..
+    ```
+1. Folgender Code in eine weitere Zelle einfügen:
+    ```python
+    from src.data_load import data_load
+    digits = data_load('params.yaml')
+    ```
+1. Oder direkt aus dem Notebook heraus wie auf der Kommandozeile:
+    ```python
+    !python3 src/data_load.py --config=params.yaml
     ```
 
 ## Daten vorbereiten
@@ -171,6 +180,10 @@ Wir erstellen nun folgende Dateien, oder passen sie an:
     ```shell
     python3 src/data_prepare.py --config params.yaml
     ```
+1. Im Jupyter Notebook `notebooks/pipeline.ipynb` eine Zelle hinzufügen:
+    ```shell
+    !python3 src/data_prepare.py --config params.yaml
+    ```
 
 ## Daten splitten
 
@@ -221,6 +234,10 @@ Wir erstellen nun folgende Dateien, oder passen sie an:
 1. Skript testen mit folgendem Befehl:
     ```shell
     python3 src/data_split.py --config=params.yaml
+    ```
+1. Im Jupyter Notebook `notebooks/pipeline.ipynb` eine Zelle hinzufügen:
+    ```shell
+    !python3 src/data_split.py --config=params.yaml
     ```
 
 ## Training
@@ -276,6 +293,10 @@ Wir erstellen nun folgende Dateien, oder passen sie an:
 1. Skript testen mit folgendem Befehl:
     ```shell
     python3 src/train.py --config=params.yaml
+    ```
+1. Im Jupyter Notebook `notebooks/pipeline.ipynb` eine Zelle hinzufügen:
+    ```shell
+    !python3 src/train.py --config=params.yaml
     ```
 
 ## Evaluation
@@ -345,6 +366,10 @@ Wir erstellen nun folgende Dateien, oder passen sie an:
 1. Skript testen mit folgendem Befehl:
     ```shell
     python3 src/evaluate.py --config=params.yaml
+    ```
+1. Im Jupyter Notebook `notebooks/pipeline.ipynb` eine Zelle hinzufügen:
+    ```shell
+    !python3 src/evaluate.py --config=params.yaml
     ```
 
 ## Auf GitHub übertragen

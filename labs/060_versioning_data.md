@@ -4,8 +4,6 @@
     ```shell
     dvc remote add -d local /tmp/dvc/digits
     ```
-    In der Realität würde diese Ablage z.B. auf einem S3-Bucket auf AWS liegen, wo wir alle Versionen unserer Daten speichern. Die Konfiguration wie auch weitere mögliche Ablagen ist der Dokumentation zu entnehmen: https://dvc.org/doc/command-reference/remote#remote
-
 1. Es wurde eine Änderung an `.dvc/config` vorgenommen, diese Änderung muss in Git hinzugefügt werden:
     ```shell
     git add .dvc/config
