@@ -29,4 +29,3 @@
 * [Data Versioning Control (DVC)](https://dvc.org/)
 * [Continuous Machine Learning (CML)](https://cml.dev/)
 * [scikit-learn, Machine Learning in Python](https://scikit-learn.org)
-

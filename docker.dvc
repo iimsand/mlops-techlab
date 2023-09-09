@@ -1,6 +1,0 @@
-outs:
-- md5: 8f5bf6fc46ea166f3fe599d3c22e0cb3.dir
-  size: 1337
-  nfiles: 3
-  hash: md5
-  path: docker
