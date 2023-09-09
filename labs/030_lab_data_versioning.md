@@ -55,13 +55,17 @@ DVC speichert Ausführungen der Pipeline sowie Daten in einem Cache unter `.dvc/
     ```shell
     dvc diff
     ```
+1. Daten pushen:
+    ```shell
+    dvc push
+    ```
 1. Parameter `test_size` in `params.yaml` wieder auf `0.5` setzen und die Datei speichern.
 1. Wenn man nun sehen will, was die Änderung für Auswirkungen auf die Stages hat, kann man dies mit `dvc status` tun. Es werden die Stages aufgelistet und welche abhängigen Parameter sich geändert haben.
 1. Ausführen von:
     ```shell
     dvc repro
     ```
-    Keine der Stages muss nochmal ausgeführt werden, da DVC die Dateien immer noch im Cache hat.
+    Keine der Stages sollte nochmal ausgeführt werden, da DVC die Dateien immer noch im Cache hat.
 
 ## Zusätzliche Dokumentation
 
