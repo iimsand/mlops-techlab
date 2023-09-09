@@ -13,7 +13,7 @@
 1. Die neue Abhängigkeit installieren mit folgendem Befehl 
 (**ACHTUNG**: falls man sich nicht schon im virtuellen Environment befindet, unbedingt zuerst mit `source .env/bin/activate` aktivieren!):
     ```shell
-    pip install -r requiremets.txt
+    pip install -r requirements.txt
     ``````
 
 ## DVC initialisieren
