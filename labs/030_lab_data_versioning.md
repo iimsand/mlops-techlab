@@ -46,7 +46,7 @@ DVC speichert Ausführungen der Pipeline sowie Daten in einem Cache unter `.dvc/
     dvc repro
     dvc push
     ```
-1. Den Parameter `test_size` in `params.yaml` von `0.5`` auf `0.2`` setzen und die Datei speichern.
+1. Den Parameter `test_size` in `params.yaml` von `0.5` auf `0.2` setzen und die Datei speichern.
 1. Ausführen der Pipeline:
     ```shell
     dvc repro
