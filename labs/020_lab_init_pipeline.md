@@ -118,6 +118,20 @@ dvc stage add -n evaluate \
     python src/evaluate.py --config params.yaml
 ```
 
+## Komplette Pipeline ausführen
+
+Ausführen von:
+
+```shell
+dvc repro
+```
+
+Oder die komplette Pipeline grafisch anzeigen lassen:
+
+```shell
+dvc dag
+```
+
 ## Änderungen auf GitHub übertragen
 
 ```shell
