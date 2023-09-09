@@ -1,9 +1,9 @@
 # Pipeline zusammenstellen
 
-## Erweiterung DVC installieren
+## DVC installieren
 
-1. Falls dvc noch nicht in `requirements.txt` eingetragen ist, diese hinzufügen:
-    ```
+1. Falls dvc noch nicht im `requirements.txt` eingetragen ist, diese hinzufügen:
+    ```diff
     scikit-learn==1.3.0
     matplotlib==3.7.2
     pandas==2.0.3

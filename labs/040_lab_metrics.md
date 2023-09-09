@@ -1,5 +1,7 @@
 # Experimente und Metriken
 
+## Metriken
+
 1. Ausführen von
     ```shell
     dvc exp show
@@ -28,7 +30,7 @@
     +     cache: false
     ```
     Mit `cache: false` wird die Datei mit Git kontrolliert und nicht mit DVC. Die Regel ist: kleine Dateien in Git und grosse Dateien in DVC.
-1. Damit die Datei `reports/metrics.json` von Git nicht mehr ignoriert wird, muss in `.gitignore` wie folgt geändert werden:
+1. Damit die Datei `reports/metrics.json` von Git nicht mehr ignoriert wird, muss dies in `.gitignore` wie folgt geändert werden:
     ```diff
     ...
 
@@ -47,6 +49,9 @@
     dvc push
     ```
 
+## Experimente
+
+$\colorbox{yellow}{{\color{gray}{TODO}}}$ _Aufzeigen wie mit `dvc exp` Experimente gestartet werden können und mit Hands-on ergänzen._
 
 ## Zusätzliche Dokumentation
 

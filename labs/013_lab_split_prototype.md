@@ -1,8 +1,8 @@
 # Separate Skripte für einzelne Schritte erstellen
 
-Damit wir einzelne Schritte unabhängig ausführen können, teilen wir Wir die Funktionalität im Jupyter-Notebook in einzelne Python-Dateien auf. Dafür müssen wir am Ende des Skripts in eine Datei schreiben, die im Folgeschritt wieder gelesen werden kann. `joblib.dump()` bietet die Möglichkeit, ganze Python-Objekte effizient abzuspeichern und einzulesen. Alternativ kann ein Dataframe auch in eine csv-Datei abgespeichert werden.
+Damit wir einzelne Schritte unabhängig ausführen können, teilen wir die Funktionalität im Jupyter-Notebook in einzelne Python-Dateien auf. Dafür müssen wir am Ende des Skripts den Output in eine Datei schreiben. Die Datei kann dann im Folgeschritt wieder gelesen werden. `joblib.dump()` bietet die Möglichkeit, ganze Python-Objekte effizient abzuspeichern und einzulesen. Alternativ kann ein Dataframe auch in eine csv-Datei abgespeichert werden.
 
-Wir erstellen nun folgende Dateien, oder passen sie an:
+Wir erstellen nun folgende Dateien, oder passen diese an:
 * [Allgemein:](#allgemein) [src/utils.py](../src/utils.py)
 * [Konfiguration:](#konfiguration) [params.yaml](../params.yaml)
 * [Daten laden:](#daten-laden) [src/data_load.py](../src/data_load.py)
@@ -14,7 +14,7 @@ Wir erstellen nun folgende Dateien, oder passen sie an:
 ## Allgemein
 1. Die Datei `src/utils.py` mit folgendem Inhalt erstellen:
 
-    Allgemeine Funktionen auslagern. Zudem erstellen wir einen Logger, den wir konfigurieren können. So haben wir die Möglichkeit, die granularität der ausgegebenen Informationen über die Konfiguration des Loglevels zu steuern.
+    Allgemeine Funktionen auslagern. Zudem erstellen wir einen Logger, den wir konfigurieren können. So haben wir die Möglichkeit, die Granularität der ausgegebenen Informationen über die Konfiguration des Loglevels zu steuern.
 
     ```python
     import logging
@@ -51,7 +51,7 @@ Wir erstellen nun folgende Dateien, oder passen sie an:
         return logger
     ```
 ## Konfiguration
-1. In der Datei `params.yaml` folgende das Loglevel definieren:
+1. In der Datei `params.yaml` das Loglevel definieren:
     ```diff
     +base:
     +    log_level: INFO

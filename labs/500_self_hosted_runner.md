@@ -26,13 +26,13 @@ Dies ist ersichtlich am Badge neben dem Repository Titel wenn man https://github
     ```shell
     export repo_token=TOKEN
     ```
-1. Den Runner starten mit folgendem Befehl starten:
+1. Den Runner mit folgendem Befehl starten:
     ```shell
     docker run \
         --name digits-runner \
         -d \
         -e RUNNER_IDLE_TIMEOUT=1800 \
-        -e RUNNER_LABELS=cml,vm \
+        -e RUNNER_LABELS=cml \
         -e RUNNER_REPO=$repo_url \
         -e REPO_TOKEN=$repo_token \
         iterativeai/cml:0-dvc3-base1 \
@@ -46,14 +46,14 @@ Dies ist ersichtlich am Badge neben dem Repository Titel wenn man https://github
 
 ## Repository auf eigenen Runner umstellen
 
-1. Mit `git status` prüfen ob man auf dem `main` ist. Falls nicht, auf den `main` wechseln.
+1. Mit `git status` prüfen ob man auf dem `main` ist. Falls nicht, mit `git checkout main` auf diesen wechseln.
 1. Datei `.github/workflows/cml.yaml` editieren und folgende Änderung durchführen:
     ```diff
     ...
     jobs:
       train-and-report:
     -   runs-on: ubuntu-latest
-    +   runs-on: [self-hosted, cml, vm]
+    +   runs-on: [self-hosted, cml]
         steps:
         ...
     ```

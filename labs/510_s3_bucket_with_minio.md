@@ -1,13 +1,13 @@
 # S3 Bucket einrichten mit MinIO
 
 1. Die Datei `requirements.txt` anpassen:
-    ```shell
+    ```diff
     ...
     -dvc==3.15.0
     +dvc[s3]==3.15.0
     ...
     ```
-1. Abhängigkeiten installieren mit (zuerst prüfen das man sich im virtuellen Environment befindet, ansonsten mit `source .env/bin/activate` wechseln):
+1. Abhängigkeiten installieren (zuerst prüfen das man sich im virtuellen Environment befindet, ansonsten mit `source .env/bin/activate` aktivieren):
     ```shell
     pip install -r requirements.txt
     ```
@@ -40,7 +40,7 @@
     ```shell
     docker compose logs -f
     ```
-1. Unter http://locahost:9000 kann man auf den MinIO Browser zugreifen (usr: minioadmin, pwd: minioadmin) und das Bucket einsehen.
+1. Unter http://locahost:9000 kann man auf den MinIO Browser zugreifen (usr: `minioadmin`, pwd: `minioadmin`) und das Bucket einsehen.
 1. DVC Remote hinzufügen mit:
     ```shell
     dvc remote add -d minio s3://dvc-digits
@@ -51,7 +51,7 @@
     dvc remote modify minio access_key_id minioadmin
     dvc remote modify minio secret_access_key minioadmin
     ```
-    **ACHTUNG**: Hier nutzen wir eine lokale Testumgebung, daher können wir den `secret_access_key` im GitHub einchecken. **Dies darf mit einem produktiven Key NICHT getan werden!** Dazu stellt DVC den parameter `--local` zur Verfügung mit welchem die Konfiguration nur lokal in `.dvc/config.local` abgelegt wird. Hier die Befehle wenn man ein produktives Repository nutzt:
+    **ACHTUNG**: Hier nutzen wir eine lokale Testumgebung, daher können wir den `secret_access_key` im GitHub einchecken. **Dies darf mit einem produktiven Key NICHT getan werden!** Dazu stellt DVC den parameter `--local` zur Verfügung, mit welchem die Konfiguration nur lokal in `.dvc/config.local` abgelegt wird. Hier die Befehle wenn man ein produktives Repository nutzen würde:
     ```shell
     dvc remote modify --local minio access_key_id minioadmin
     dvc remote modify --local minio secret_access_key minioadmin
@@ -87,7 +87,7 @@ Aktuell hat der GitHub Action Runner oder der Self-Hosting Runner keinen Zugriff
     +   
     ...
     ```
-1. In einem Terminal den Container wie folgt hochfahren (falls `repo_url` und `repo_token` noch nicht gesetzt sind, dies wie in [Self-hosted Runner](090_self_hosted_runner.md) beschrieben zuerst setzen):
+1. In einem Terminal den Container wie folgt hochfahren (falls `repo_url` und `repo_token` noch nicht gesetzt sind, dies wie in [Self-hosted Runner](500_self_hosted_runner.md) beschrieben zuerst setzen):
     ```shell
     docker compose up -d
     ```
@@ -95,11 +95,11 @@ Aktuell hat der GitHub Action Runner oder der Self-Hosting Runner keinen Zugriff
     ```shell
     dvc remote modify minio endpointurl http://minio:9000
     ```
-1. Wenn wir lokal arbeiten, wollen wir minio über `localhost` erreichen:
+1. Wenn wir lokal arbeiten, wollen wir minio über `localhost` erreichen, daher können wir nun mit `--local` die `endpointurl` für `minio` anpassen: 
     ```shell
     dvc remote modify --local minio endpointurl http://localhost:9000
     ```
-1. Nun können wir auch im Runner Files vom lokalen S3 Bucket holen und die Datei `.github/workflows/cml.yaml` erweitern:
+1. Nun können wir auch im Runner die Files vom lokalen S3 Bucket holen und die Datei `.github/workflows/cml.yaml` erweitern:
     ```diff
     ...
       - name: Train model

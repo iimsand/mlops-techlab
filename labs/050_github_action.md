@@ -16,6 +16,7 @@ Im den folgenden Screenshots ist zu sehen, welche Optionen gemeint sind:
 ## Pipeline bei jedem Push ausführen
 
 1. Die Datei `.github/workflows/cml.yaml` mit folgendem Inhalt erstellen:
+
 ```yaml
 name: CML & DVC
 on: [push]
@@ -51,7 +52,8 @@ jobs:
 
           cml comment create report.md
 ```
-1. Änderungen in Git hinzufügen und pushen:
+
+2. Änderungen in Git hinzufügen und pushen:
     ```shell
     git add .
     git commit -m "Add GitHub action execution."
