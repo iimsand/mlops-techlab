@@ -111,10 +111,10 @@ dvc queue status
 
 ### Experiment weiterverfolgen
 
-Haben wir in unseren Experimenten einen vielversprechenden Kandidaten gefunden den wir weiterverfolgen wollen. Können wir hiervon einen Branch mit folgendem Befehl erstellen.
+Haben wir in unseren Experimenten einen vielversprechenden Kandidaten gefunden den wir weiterverfolgen wollen. Können wir hiervon einen Branch erstellen. Dazu den Namen des gewünschten Experiments auswählen und mit folgendem Befehl einen Branch erstellen:
 
 ```shell
-dvc exp branch minim-rede
+dvc exp branch <NAME_DES_EXPERIMENTS>
 
 # show branches
 git branch
