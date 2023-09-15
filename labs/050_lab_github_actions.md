@@ -126,7 +126,7 @@ Nun führen wir nochmal ein Experiment durch:
 1. Mit dem Link in den Logs gelangt man wieder zum Pull Request wenn der Workflow ausgeführt wurde.
 1. Je nachdem ob der `f1 score` besser ist, können wir den Pull Request akzeptieren und auf den Branch `exp-kernel-experiments` mergen.
 1. Wir könnten nun weitere Experimente starten lassen und wenn wir ein gutes Modell gefunden haben, könnte der Branch `exp-kernel-experiments` in den `main` reintegriert werden. Wer will, kann dies tun und einen Pull Request für `exp-kernel-experiments` auf `main` erstellen und mergen.
-1. Lokal wechseln wir wieder auf den `main` zurückwechseln:
+1. Lokal wechseln wir wieder zurück auf den `main`:
     ```shell
     git checkout main
     dvc pull
