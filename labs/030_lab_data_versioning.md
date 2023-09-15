@@ -75,3 +75,8 @@ DVC speichert Ausführungen der Pipeline sowie Daten in einem Cache unter `.dvc/
     - [status](https://dvc.org/doc/command-reference/status#status)
     - [push](https://dvc.org/doc/command-reference/push#push)
     - [pull](https://dvc.org/doc/command-reference/pull#pull)
+
+---
+
+[← Pipeline zusammenstellen](020_lab_init_pipeline.md) | [STARTSEITE](../README.md) |
+[Metriken und Experimente →](040_lab_metrics.md)

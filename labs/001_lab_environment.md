@@ -43,4 +43,9 @@ echo "export PATH=`python -m site --user-site`/bin:\$PATH" >> ~/.bashrc
 echo "export PYTHONPATH=$CODESPACE_VSCODE_FOLDER" >> ~/.bashrc
 ```
 
-Damit die Konfiguration aktiv wird, muss ein neues Terminal geöffnet werden.
+**Damit die Konfiguration aktiv wird, muss ein neues Terminal geöffnet werden.**
+
+---
+
+[← STARTSEITE](../README.md) |
+[Prototyp ML-Experiment →](010_lab_initial_prototype.md)

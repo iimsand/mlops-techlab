@@ -1,5 +1,7 @@
 # Artefakte speichern
 
+**Dieses Lab wird im Workshop vorgestellt und zusammen durchgegangen. Daher kannst du dieses Lab ignorieren. Springe bitte direkt zum nächsten Lab [Pipeline zusammenstellen →](020_lab_init_pipeline.md)**
+
 Damit wir den Output später weiterverwenden können, müssen wir die Artefakte in separate Dateien abspeichern. Dazu müssen wir folgende Änderungen am Code durchführen.
 
 1. Folgende Änderungen im Code durchführen:
@@ -97,3 +99,5 @@ Damit wir den Output später weiterverwenden können, müssen wir die Artefakte 
     git commit -m "Save artifacts."
     git push
     ```
+
+---

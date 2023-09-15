@@ -1,5 +1,7 @@
 # Separate Skripte für einzelne Schritte erstellen
 
+**Dieses Lab wird im Workshop vorgestellt und zusammen durchgegangen. Daher kannst du dieses Lab ignorieren. Springe bitte direkt zum nächsten Lab [Pipeline zusammenstellen →](020_lab_init_pipeline.md)**
+
 Damit wir einzelne Schritte unabhängig ausführen können, teilen wir die Funktionalität im Jupyter-Notebook in einzelne Python-Dateien auf. Dafür müssen wir am Ende des Skripts den Output in eine Datei schreiben. Die Datei kann dann im Folgeschritt wieder gelesen werden. `joblib.dump()` bietet die Möglichkeit, ganze Python-Objekte effizient abzuspeichern und einzulesen. Alternativ kann ein Dataframe auch in eine csv-Datei abgespeichert werden.
 
 Wir erstellen nun folgende Dateien, oder passen diese an:
@@ -355,3 +357,5 @@ Wir erstellen nun folgende Dateien, oder passen diese an:
     git commit -m "Move code."
     git push
     ```
+
+---

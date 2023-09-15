@@ -141,3 +141,8 @@ git checkout .
 
 - [DVC Command Reference](https://dvc.org/doc/command-reference)
     - [exp](https://dvc.org/doc/command-reference/exp#exp)
+
+---
+
+[← Daten und Modell versionieren](030_lab_data_versioning.md) | [STARTSEITE](../README.md) |
+[GitHub Actions →](050_lab_github_actions.md)

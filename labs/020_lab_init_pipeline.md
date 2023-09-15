@@ -139,3 +139,8 @@ git add .
 git commit -m "Automate pipeline."
 git push
 ```
+
+---
+
+[← Prototyp ML-Experiment](010_lab_initial_prototype.md) | [STARTSEITE](../README.md) |
+[Daten und Modell versionieren →](030_lab_data_versioning.md)

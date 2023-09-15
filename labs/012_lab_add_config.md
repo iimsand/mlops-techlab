@@ -1,5 +1,7 @@
 # Konfiguration hinzufügen
 
+**Dieses Lab wird im Workshop vorgestellt und zusammen durchgegangen. Daher kannst du dieses Lab ignorieren. Springe bitte direkt zum nächsten Lab [Pipeline zusammenstellen →](020_lab_init_pipeline.md)**
+
 Damit wir später nicht ständig Anpassungen im Code duchführen müssen, extrahieren wir die Informationen in eine Konfigurationsdatei.
 
 1. Die Datei `params.yaml` mit folgendem Inhalt erstellen:
@@ -121,3 +123,5 @@ Damit wir später nicht ständig Anpassungen im Code duchführen müssen, extrah
     git commit -m "Add configuration."
     git push
     ```
+
+---

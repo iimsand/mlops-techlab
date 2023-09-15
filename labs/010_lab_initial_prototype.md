@@ -2,7 +2,7 @@
 
 Wir haben ein Jupyter-Notebook mit dem Prototypen erstellt. Du solltest dieses Notebook in deinem Repository unter `notebooks/prototype.ipynb` finden.
 
-Damit du das Notebook in VSCode ausführen kannst, musst du die Python-Umgebung konfigurieren. Danach kannst du entweder mit `Run All` alle Codeabschnitte oder mit dem Pfeil links neben dem Codeabschnitt den einzelnen Abschnitt ausführen.  
+Damit du das Notebook in VSCode ausführen kannst, musst du die Python-Umgebung konfigurieren. Danach kannst du entweder mit `Run All` alle Codeabschnitte oder mit dem Pfeil links neben dem Codeabschnitt den einzelnen Abschnitt ausführen.
 
 1. Die Datei [notebooks/prototyp.ipynb](notebooks/prototype.ipynb) öffnen.
 1. Die erstellte Python-Umgebung wie folgt konfigurieren:
@@ -21,3 +21,20 @@ Damit du das Notebook in VSCode ausführen kannst, musst du die Python-Umgebung 
         Logischerweise müssen die Abschnitte in der gegebenen Reihenfolge ausgeführt werden, da sonst die Abhängigkeiten nicht gegeben sind.
         
         ![](./screenshots/jupyter-run-block.png)
+
+## Ausführung Befehle im Terminal
+
+Teste bitte, ob die folgenden Befehle im Terminal funktionieren:
+
+```shell
+python3 src/data_load.py --config params.yaml
+python3 src/data_prepare.py --config params.yaml
+python3 src/data_split.py --config params.yaml
+python3 src/train.py --config params.yaml
+python3 src/evaluate.py --config params.yaml
+```
+
+---
+
+[← Umgebung vorbereiten](001_lab_environment.md) | [STARTSEITE](../README.md) |
+[Pipeline zusammenstellen →](020_lab_init_pipeline.md)
