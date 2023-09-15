@@ -2,9 +2,8 @@
 
 ## Voraussetzungen
 
-- Linux (das Lab wurde mit Ubuntu 20.04 LTS getestet)
 - GitHub Account
-    - Verbindung mit SSH (siehe [Testing your SSH connection](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/testing-your-ssh-connection))
+    - mit genügend Kontingent für Codespaces und Actions (kann unter https://github.com/settings/billing geprüft werden)
 
 ## Labs
 
