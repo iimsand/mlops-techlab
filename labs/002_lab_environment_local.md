@@ -39,7 +39,7 @@ source .env/bin/activate
 
 pip install --upgrade pip setuptools
 pip install -r requirements.txt
-```Dieses Kapitel musst du nur beachten, falls du das Lab in deiner lokalen Umgebung durchspielen möchtest.
+```
 
 
 ### Visual Studio Code
