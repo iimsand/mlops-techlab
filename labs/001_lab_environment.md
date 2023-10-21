@@ -28,7 +28,7 @@ Aus deinem neu erstellten Repository kannst du nun GitHub-Codespace öffnen.
 1. Unter "Code -> Codespaces" kannst du nun mit "Create codespace on main" die Umgebung starten:   
 ![GitHub start codespace](screenshots/github_repo_start_codespace.png)
 
-Weiter Informationen zu codespace: https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace-for-a-repository
+Weitere Informationen zu Codespace: [Creating a codespace for a repository](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace-for-a-repository)
 
 ### Python konfigurieren
 
