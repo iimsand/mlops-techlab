@@ -9,6 +9,7 @@
     - Man sollte aktuell 2 Experimente `workspace` und `main` sehen.
     - Mit den Pfeiltasten links/rechts kann die Tabelle hin- und hergeschoben werden.
     - Man sieht zwar die Parameter aus dem `param.yaml` und die Hashes der Dateien, aber keine Metriken wie z.B. der `f1 score`.
+1. Die Taste `q` drücken, um wieder auf die Kommandozeile zu gelangen.
 1. Im `dvc.yaml` die Stage `evaluate` wie folgt anpassen:
     ```diff
     evaluate:
@@ -61,7 +62,7 @@ dvc exp run -n kernel-sigmoid --set-param train.svc_params.kernel=sigmoid
 dvc exp show
 ```
 
-Wir sehen nun ein Experiment, dass von unserem Branch aus gestartet wurde und vermutlich einen tieferen `f1 score` aufweist.
+Wir sehen nun ein Experiment, dass von unserem Branch aus gestartet wurde und einen tieferen `f1 score` aufweist.
 
 ### Sigmoid Kernel mit anderer `test_size`
 
@@ -71,7 +72,7 @@ dvc exp run -n kernel-sigmoid-1 -S train.svc_params.kernel=sigmoid -S data.test_
 dvc exp show
 ```
 
-Auch dieses Experiment wird aufgelistet, doch der `f1 score` ist nun sehr tief. Das Modell scheint nicht sehr gut zu funktionieren.
+Auch dieses Experiment wird aufgelistet und wieder ist der `f1 score` sehr tief. Das Modell scheint nicht sehr gut zu funktionieren - doch für unsere Zwecke ist dies aktuell nebensächlich.
 
 ### Verschiedene Werte ausprobieren
 
@@ -109,9 +110,15 @@ Es dauert nun einige Zeit, bis alle Experimente ausgeführt wurden. Den Status d
 dvc queue status
 ```
 
+Wenn alle Experimente durchgelaufen sind, können wir nun alle `f1 scores` mit folgendem Befehl vergleichen:
+
+```shell
+dvc exp show --only-changed --sort-by=f1 --sort-order desc
+```
+
 ### Experiment weiterverfolgen
 
-Haben wir in unseren Experimenten einen vielversprechenden Kandidaten gefunden den wir weiterverfolgen wollen. Können wir hiervon einen Branch erstellen. Dazu den Namen des gewünschten Experiments auswählen und mit folgendem Befehl einen Branch erstellen:
+Haben wir in unseren Experimenten einen vielversprechenden Kandidaten gefunden, den wir weiterverfolgen wollen, können wir hiervon einen Branch erstellen. Dazu den Namen des gewünschten Experiments auswählen (z.B. wäre bei einem Experiment `├── 97ac45a [moony-pump] ...` der Name `moony-pump`) und mit folgendem Befehl einen Branch erstellen:
 
 ```shell
 dvc exp branch <NAME_DES_EXPERIMENTS>
@@ -120,7 +127,7 @@ dvc exp branch <NAME_DES_EXPERIMENTS>
 git branch
 ```
 
-DVC hat uns einen Branch erstellt auf welchen wir wechseln, alles in Git und DVC hinzufügen und pushen könnten. Aktuell wechseln wir aber den Branch nicht und bleiben auf dem aktuellen.
+DVC hat uns einen Branch erstellt auf welchen wir wechseln, alles in Git und DVC hinzufügen und pushen könnten. Aktuell wechseln wir aber den Branch nicht und bleiben auf dem aktuellen `main` Branch.
 
 ### Experimente bereinigen
 
