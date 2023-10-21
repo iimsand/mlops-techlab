@@ -41,12 +41,13 @@ DVC speichert Ausführungen der Pipeline sowie Daten in einem Cache unter `.dvc/
 
 ## Änderung von abhängigen Parametern und Cache
 
-1. Pipeline ausführen und Daten pushen:
+1. Ausführen der Pipeline:
     ```shell
     dvc repro
-    dvc push
     ```
+1. Keine der Stages wurde ausgeführt, weil sich nichts verändert hat.
 1. Den Parameter `test_size` in `params.yaml` von `0.5` auf `0.2` setzen und die Datei speichern.
+1. Wenn man sehen will, welche Stages von der Änderung betroffen sind, kann man dies mit `dvc status` tun. Es werden die Stages aufgelistet und welche abhängigen Parameter sich geändert haben.
 1. Ausführen der Pipeline:
     ```shell
     dvc repro
@@ -55,17 +56,26 @@ DVC speichert Ausführungen der Pipeline sowie Daten in einem Cache unter `.dvc/
     ```shell
     dvc diff
     ```
-1. Daten pushen:
+1. Den Parameter `test_size` in `params.yaml` von `0.2` auf `0.3` setzen und die Datei speichern.
     ```shell
-    dvc push
+    dvc repro
     ```
+1. Parameter `test_size` in `params.yaml` wieder auf `0.2` setzen und die Datei speichern.
+1. Ausführen der Pipeline:
+    ```shell
+    dvc repro
+    ```
+1. Man sieht, dass die Stages nicht noch einmal ausgeführt werden. Es wird alles aus dem Cache geladen und nur die Datei `dvc.lock` wird aktualisiert.
 1. Parameter `test_size` in `params.yaml` wieder auf `0.5` setzen und die Datei speichern.
-1. Wenn man nun sehen will, was die Änderung für Auswirkungen auf die Stages hat, kann man dies mit `dvc status` tun. Es werden die Stages aufgelistet und welche abhängigen Parameter sich geändert haben.
 1. Ausführen von:
     ```shell
     dvc repro
     ```
-    Keine der Stages sollte nochmal ausgeführt werden, da DVC die Dateien immer noch im Cache hat.
+1. Beim Ausführen der folgenden Befehle, sollten nun keine Änderungen mehr angezeigt werden, da wir wieder im ursprünglichen Zustand mit `test_size=0.5` sind:
+    ```shell
+    git status
+    dvc status
+    ``` 
 
 ## Zusätzliche Dokumentation
 
