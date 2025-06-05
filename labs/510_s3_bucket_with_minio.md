@@ -3,8 +3,8 @@
 1. Die Datei `requirements.txt` anpassen:
     ```diff
     ...
-    -dvc==3.15.0
-    +dvc[s3]==3.15.0
+    -dvc==3.59.2
+    +dvc[s3]==3.59.2
     ...
     ```
 1. Abhängigkeiten installieren (zuerst prüfen das man sich im virtuellen Environment befindet, ansonsten mit `source .env/bin/activate` aktivieren):

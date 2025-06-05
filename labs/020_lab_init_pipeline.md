@@ -4,10 +4,10 @@
 
 1. Falls dvc noch nicht im `requirements.txt` eingetragen ist, diese Zeile hinzufügen (ohne das `+` am Anfang):
     ```diff
-    scikit-learn==1.3.0
+    scikit-learn==1.3.2
     matplotlib==3.7.2
     pandas==2.0.3
-    +dvc==3.42.0
+    +dvc==3.59.2
     jupyterlab==4.0.3
     ```
 1. Die neue Abhängigkeit installieren mit folgendem Befehl 

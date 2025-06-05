@@ -52,7 +52,7 @@ Dies ist ersichtlich am Badge neben dem Repository Titel wenn man https://github
     ...
     jobs:
       train-and-report:
-    -   runs-on: ubuntu-20.04
+    -   runs-on: ubuntu-22.04
     +   runs-on: [self-hosted, cml]
         steps:
         ...
