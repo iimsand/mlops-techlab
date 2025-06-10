@@ -163,6 +163,15 @@ Nun führen wir nochmal ein Experiment durch:
     ```
 1. Unter https://github.com/GITHUB_USER/digits/actions wird wieder ein Workflow ausgeführt.
 1. Ein Link zum Report wieder in den Logs angezeigt. Doch diesmal befindet sich der Report direkt in einem Pull-Request. Mit einem Klick auf den Link gelangt man auf den Pull-Request mit dem Report.
+    - Hinweis: Sollte kein Pull Request vorhanden sein, dann in der Datei `params.yaml` noch einen Parameter ändern (z.B. `test-size: 0.4`), speichern und Änderungen pushen mit:
+        ```shell
+        git add .
+        git commit -m "Experiment with test-size 0.4"
+        git push
+        dvc push
+        ```
+        Diesmal sollte ein Pull Request erzeugt werden.  
+        (_**TODO**: Problem muss noch untersucht werden, wieso beim ersten push kein Pull Request erzeugt wird._)
 1. Wir sehen, dass der `f1 score` im Vergleich zum `main` sehr viel schlechter ist. Das Team würde dieses Modell sicherlich nicht integrieren wollen.
 
 Darum erstellen wir ein weiteres Experiment:
