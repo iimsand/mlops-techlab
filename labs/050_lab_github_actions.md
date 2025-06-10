@@ -82,6 +82,7 @@ jobs:
 1. Einen neuen Branch erstellen mit:
     ```shell
     git checkout -b exp-kernel-poly
+    git push --set-upstream origin exp-kernel-poly
     ```
 1. In der Datei `params.yaml` den Parameter `kernel` auf `poly` ändern und die Datei speichern.
 1. Pipeline ausühren
@@ -92,7 +93,7 @@ jobs:
     ```shell
     git add .
     git commit -m "Experiment with kernel poly."
-    git push --set-upstream origin exp-kernel-poly
+    git push
     dvc push
     ```
 1. Unter https://github.com/GITHUB_USER/digits/actions wird nun ein Workflow ausgeführt.
@@ -119,8 +120,6 @@ Dazu machen wir im `.github/workflows/cml.yaml` folgende Änderungen:
         run: |
           cml ci --fetch-depth=0
 
-+         cml pr create .
-
           echo "## Metrics" >> report.md
           dvc metrics show --md >> report.md
 
@@ -133,6 +132,9 @@ Dazu machen wir im `.github/workflows/cml.yaml` folgende Änderungen:
           echo "## Plots" >> report.md
           echo "### Class confusions" >> report.md
           echo '![](./reports/confusion_matrix.png "Confusion Matrix")' >> report.md
+
++         echo "Report created on $(date -u)" >> report.md
++         cml pr create .
 
           cml comment create report.md
 ```
@@ -150,6 +152,7 @@ Nun führen wir nochmal ein Experiment durch:
 1. Einen neuen Branch erstellen mit:
     ```shell
     git checkout -b exp-kernel-experiments
+    git push --set-upstream origin exp-kernel-experiments
     ```
 1. In der Datei `params.yaml` den Parameter `kernel` auf `sigmoid` ändern und die Datei speichern.
 1. Pipeline ausführen
@@ -160,7 +163,7 @@ Nun führen wir nochmal ein Experiment durch:
     ```shell
     git add .
     git commit -m "Experiment with kernel sigmoid."
-    git push --set-upstream origin exp-kernel-experiments
+    git push
     dvc push
     ```
 1. Unter https://github.com/GITHUB_USER/digits/actions wird wieder ein Workflow ausgeführt.
