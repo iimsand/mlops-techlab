@@ -21,6 +21,8 @@ Im den folgenden Screenshots ist zu sehen, welche Optionen gemeint sind:
 name: CML & DVC
 on:
   push:
+    branches-ignore:
+      - main
     paths:
       - "src/**"
       - "params.yaml"
