@@ -33,8 +33,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - uses: iterative/setup-cml@v1
       - uses: actions/checkout@v3
+      - uses: iterative/setup-cml@v2
+        with:
+          version: 'v0.20.6'
 
       - name: Install python packages
         run: |
