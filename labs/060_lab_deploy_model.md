@@ -7,7 +7,7 @@ Um das Modell auch einmal manuell testen zu können, erstellen wir eine kleine A
 1. In der Datei `requirements.txt` folgendes hinzufügen und speichern:
     ```diff
     gradio==3.48.0
-    scikit-image==0.21.0
+    scikit-image==0.25.2
     ```
 2. Danach die Abhängigkeiten installieren.
     ```shell
