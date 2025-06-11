@@ -6,46 +6,121 @@
 
 Dies ist ersichtlich am Badge neben dem Repository Titel wenn man https://github.com/GITHUB_USER/digits aufruft.
 
-## GitHub Access token erstellen
+## Voraussetzungen
 
-1. Aufrufen von https://github.com/settings/tokens und _Generate new token (classic)_ wählen.
-1. Für das neue Token folgende Werte verwenden:
-    - Note: `PERSONAL_ACCESS_TOKEN`
-    - Scopes: `repo` (Full control of private repositories)
-1. Klick auf _Generate token_
-1. Token kopieren und irgendwo sicher ablegen (z.B. KeePass)
+- Linux
+- Docker
 
-## Runner starten
+## Self-hosted runner einrichten
 
-1. Neues Terminal öffnen.
-1. `repo_url` setzen wie folgt (`GITHUB_USER` ersetzen mit eigenem GitHub Benutzer!):
-    ```shell
-    export repo_url=https://github.com/GITHUB_USER/digits.git
-    ```
-1. `repo_token` setzen wie folgt (`TOKEN` ersetzen mit oben generiertem Token!):
-    ```shell
-    export repo_token=TOKEN
-    ```
-1. Den Runner mit folgendem Befehl starten:
-    ```shell
-    docker run \
-        --name digits-runner \
-        -d \
-        -e RUNNER_IDLE_TIMEOUT=1800 \
-        -e RUNNER_LABELS=cml \
-        -e RUNNER_REPO=$repo_url \
-        -e REPO_TOKEN=$repo_token \
-        iterativeai/cml:0-dvc3-base1 \
-        cml runner --
-    ```
-1. Logs ausgeben mit:
-    ```shell
-    docker logs -f digits-runner
-    ```
-1. Unter https://github.com/GITHUB_USER/digits/settings/actions/runners erscheint nach einiger Zeit der Runner als _Idle_.
+Unter [Adding a self-hosted runner to a repository](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners#adding-a-self-hosted-runner-to-a-repository) wird beschrieben wie man einen self-hosted runner zu seinem repository hinzufügen kann.
+
+Dazu auf dem **lokalen System** ein Projektverzeichnis (z.B. `self-hosted-runner`) erstellen und die Datei `Dockerfile` anlegen mit folgendem Inhalt:
+
+```shell
+FROM ubuntu:22.04
+
+RUN apt update -y \
+    && apt upgrade -y \
+    && apt install -y curl perl sudo python3-pip git
+
+RUN ln -s /usr/bin/python3 /usr/bin/python
+
+RUN adduser --disabled-password --gecos "" runner
+RUN usermod -aG sudo runner
+RUN echo 'runner ALL=(ALL) NOPASSWD:ALL' | sudo tee /etc/sudoers.d/runner
+RUN sudo chmod 0440 /etc/sudoers.d/runner
+
+USER runner
+WORKDIR /home/runner
+
+RUN mkdir -p ./.local/bin
+
+# commands from https://github.com/GITHUB_USER/digits/settings/actions/runners/new
+RUN mkdir actions-runner && cd actions-runner
+RUN curl -o actions-runner-linux-x64-2.325.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.325.0/actions-runner-linux-x64-2.325.0.tar.gz
+RUN tar xzf ./actions-runner-linux-x64-2.325.0.tar.gz
+RUN echo "5020da7139d85c776059f351e0de8fdec753affc9c558e892472d43ebeb518f4  actions-runner-linux-x64-2.325.0.tar.gz" | shasum -a 256 -c
+
+# fehlende dependencies installieren
+RUN sudo ./bin/installdependencies.sh
+
+```
+
+Danach kann das Image lokal mit folgedem Befehl erstellt werden:
+
+```shell
+docker build -t local/self-hosted-runner:ubuntu-22.04 .
+```
+
+Den Container mit folgendem Befehl starten:
+
+```shell
+docker run -it --name self-hosted-runner local/self-hosted-runner:ubuntu-22.04 /bin/bash
+```
+
+Nun https://github.com/GITHUB_USER/digits aufrufen und unter `Settings -> Actions -> Runners` oben rechts den Knopf `New self-hosted runner` klicken. Als Runner image `Linux` und Architecture `x64` wählen. Der Befehl `./config` aus dem Abschnitt _Configuration_ aufrufen. Alle defaults übernehmen mit Ausname von `additional labels` - hier noch 'cml' als Label hinzufügen!
+
+Die Ausgabe sollte wie folgt aussehen:
+
+```shell
+runner@1a8c73ec20fc:~$ ./config.sh --url https://github.com/iimsand/digits --token ***
+
+--------------------------------------------------------------------------------
+|        ____ _ _   _   _       _          _        _   _                      |
+|       / ___(_) |_| | | |_   _| |__      / \   ___| |_(_) ___  _ __  ___      |
+|      | |  _| | __| |_| | | | | '_ \    / _ \ / __| __| |/ _ \| '_ \/ __|     |
+|      | |_| | | |_|  _  | |_| | |_) |  / ___ \ (__| |_| | (_) | | | \__ \     |
+|       \____|_|\__|_| |_|\__,_|_.__/  /_/   \_\___|\__|_|\___/|_| |_|___/     |
+|                                                                              |
+|                       Self-hosted runner registration                        |
+|                                                                              |
+--------------------------------------------------------------------------------
+
+# Authentication
+
+
+√ Connected to GitHub
+
+# Runner Registration
+
+Enter the name of the runner group to add this runner to: [press Enter for Default] 
+
+Enter the name of runner: [press Enter for 1a8c73ec20fc] 
+
+This runner will have the following labels: 'self-hosted', 'Linux', 'X64' 
+Enter any additional labels (ex. label-1,label-2): [press Enter to skip] cml
+
+√ Runner successfully added
+√ Runner connection is good
+
+# Runner settings
+
+Enter name of work folder: [press Enter for _work] 
+
+√ Settings Saved.
+
+runner@1a8c73ec20fc:~$ 
+```
+
+Runner nun mit `./run.sh` starten.
+
+Der runner ist nun bereit und es wird folgendes angezeigt:
+
+```shell
+runner@1a8c73ec20fc:~$ ./run.sh
+
+√ Connected to GitHub
+
+Current runner version: '2.325.0'
+2025-06-11 05:38:47Z: Listening for Jobs
+```
+
+Unter https://github.com/GITHUB_USER/digits/settings/actions/runners erscheint nun auch der Runner als _Idle_.
 
 ## Repository auf eigenen Runner umstellen
 
+1. Wieder auf Codespaces im Browser wechseln.
 1. Mit `git status` prüfen ob man auf dem `main` ist. Falls nicht, mit `git checkout main` auf diesen wechseln.
 1. Datei `.github/workflows/cml.yaml` editieren und folgende Änderung durchführen:
     ```diff
@@ -63,12 +138,29 @@ Dies ist ersichtlich am Badge neben dem Repository Titel wenn man https://github
     git commit -m "Use self-hosted runner."
     git push
     ```
-1. Nach kurzer Zeit sieht man im Log des Runners, das der Job gestartet wurde:
+
+Nun führen wir ein Experiment durch wie wir das schon kennen:
+
+1. Einen neuen Branch erstellen mit:
+    ```shell
+    git checkout -b my-exp
+    git push --set-upstream origin my-exp
     ```
-    {"date":"2023-08-13T17:09:46.606Z","level":"info","message":"runner status","repo":"https://github.com/GITHUB_USER/digits","status":"job_started"}
+1. In der Datei `params.yaml` einen Parameter ändern und die Datei speichern.
+1. Änderungen pushen mit:
+    ```shell
+    git add .
+    git commit -m "My experiment."
+    git push
+    dvc push
     ```
-1. Unter https://github.com/GITHUB_USER/digits/actions kann der aktuelle Stand des Jobs eingesehen werden.
-1. Ist der Job beendet, sieht man im Log des Runners auch die folgende Zeile:
-    ```
-    {"date":"2023-08-13T17:10:47.154Z","level":"info","message":"runner status","repo":"https://github.com/GITHUB_USER/digits","status":"job_ended","success":true}
-    ```
+1. Unter https://github.com/GITHUB_USER/digits/actions wird wieder ein Workflow ausgeführt. Dieser workflow wird nun aber auf dem self-hosted runner lokal ausgeführt.
+
+## Container erneut starten
+
+Wurde der Container gestoppt und man will ihn erneut starten, kann man dies wie folgt erreichen:
+
+```shell
+docker start self-hosted-runner
+docker exec -it self-hosted-runner ./run.sh
+```
