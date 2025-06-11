@@ -35,6 +35,7 @@ USER runner
 WORKDIR /home/runner
 
 RUN mkdir -p ./.local/bin
+ENV PATH=/home/runner/.local/bin:${PATH}
 
 # commands from https://github.com/GITHUB_USER/digits/settings/actions/runners/new
 RUN mkdir actions-runner && cd actions-runner
